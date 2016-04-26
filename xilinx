@@ -68,7 +68,7 @@ XILINX_ISE="XilinxISE"
 WORKSPACE="workspace"
 INSTALLER="install"
 XILINX_ISE_VERSION="14.7"
-DOCKER_IMAGE="zberkes/xilinx-ise-centos6"
+DOCKER_IMAGE="swallat/xilinx-ise-centos6-lic-server"
 normalize_paths $SCRIPTDIR
 
 # process config files
@@ -86,11 +86,11 @@ done
 DOCKER_OPTIONS=()
 
 # shell mode
-if [[ -n $RUN_IN_SHELL ]]; then
+#if [[ -n $RUN_IN_SHELL ]]; then
     DOCKER_OPTIONS=("${DOCKER_OPTIONS[@]}"  "-ti" "--rm")
-else
-    DOCKER_OPTIONS=("${DOCKER_OPTIONS[@]}"  "-d")
-fi
+#else
+#    DOCKER_OPTIONS=("${DOCKER_OPTIONS[@]}"  "-d")
+#fi
 
 # install mode
 if [[ -n $INSTALL_MODE ]]; then
@@ -112,6 +112,7 @@ docker run "${DOCKER_OPTIONS[@]}" \
        --net=host \
        -v $HOME/.Xauthority:/home/developer/.Xauthority:ro \
        -v "${WORKSPACE}":/home/workspace \
+       -v /Users/sw/RandD:/home/workspace/RandD \
        ${DOCKER_IMAGE} \
        --uid "1000" \
        --user "$(id -u -n)" \
