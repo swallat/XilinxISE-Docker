@@ -1,6 +1,6 @@
 FROM centos:6
 
-MAINTAINER Zoltán Berkes <zoltan.berkes.1@gmail.com>
+MAINTAINER Sebastian Wallat <bigblue13k@googlemail.com>
 
 RUN yum -y install \
     compat-libstdc++-33 \
