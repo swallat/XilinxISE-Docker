@@ -29,6 +29,16 @@ while [ 1 ]; do
           VERSION="$1"
           shift
           ;;
+      "--XILINXD_LICENSE_FILE")
+          shift
+          export XILINXD_LICENSE_FILE="$1"
+          shift
+          ;;
+      "--LM_LICENSE_FILE")
+          shift
+          export LM_LICENSE_FILE="$1"
+          shift
+          ;;
       "--install")
           shift
           INSTALL="YES"
@@ -54,7 +64,7 @@ done
 # protects xilinx settings file from our shell arguments
 function apply_xilinx_settings {
     set +e
-    . /opt/Xilinx/${VERSION}/ISE_DS/settings$(arch | sed s/x86_64/64/ | sed s/i386/32/).sh
+    . /opt/Xilinx/14.7/ISE_DS/settings$(arch | sed s/x86_64/64/ | sed s/i386/32/).sh
     set -e
 }
 

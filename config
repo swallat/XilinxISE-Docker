@@ -21,7 +21,7 @@ WORKSPACE="workspace"
 
 # The folder when extracted Xilinx ISE installer exists.
 # It is mounted only when "--install" option is given to the starter script.
-INSTALLER="install"
+INSTALLER="Xilinx_ISE_DS_14.7_1015_1"
 
 # The version of installed Xilinx ISE.
 # You can install more versions to $XILINX_ISE and select which one to use

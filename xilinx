@@ -1,8 +1,9 @@
 #!/bin/bash
-set -e
+set -x
 
-SCRIPTDIR=$(dirname $(readlink -f "$0"))
-
+SCRIPTDIR=$(dirname $(greadlink -f "$0"))
+xhost +$(docker-machine ip)
+ip=$(ifconfig vnic0 | grep inet | awk '$1=="inet" {print $2}')
 ##
 ## Process arguments
 ##
@@ -107,15 +108,17 @@ fi
 ## Run docker
 ##
 docker run "${DOCKER_OPTIONS[@]}" \
-       -e DISPLAY=$DISPLAY \
+       -e DISPLAY=$ip:0 \
        --net=host \
        -v $HOME/.Xauthority:/home/developer/.Xauthority:ro \
        -v "${WORKSPACE}":/home/workspace \
        ${DOCKER_IMAGE} \
-       --uid "$(id -u)" \
+       --uid "1000" \
        --user "$(id -u -n)" \
-       --gid "$(id -g)" \
+       --gid "1000" \
        --group "$(id -g -n)" \
        --create-user \
        --version "${XILINX_ISE_VERSION}" \
+       --XILINXD_LICENSE_FILE "${XILINXD_LICENSE_FILE}" \
+       --LM_LICENSE_FILE "${LM_LICENSE_FILE}" \
        "${CMD[@]}"
